@@ -1,0 +1,9 @@
+Changes
+MANIFEST
+MANIFEST.SKIP
+Makefile.PL
+README
+lib/DBIx/SimpleQuery.pm
+lib/DBIx/SimpleQuery/Object.pm
+t/01-dbd-sqlite-exists.t
+t/20-general.t

@@ -1,0 +1,4 @@
+0.01 - 2004-10-18
+- Initial CPAN release.  Not yet for general consumption, but rather
+  so that people can more easily test it and give me pointers on what
+  needs better documentation.
