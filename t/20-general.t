@@ -1,12 +1,14 @@
 use DBIx::SimpleQuery;
-use Test::More qw(no_plan);
+use Test::More tests => 20;
 
 if (-r "simplequery_test.db") {
     diag "simplequery_test.db exists.  Removing.";
     unlink "simplequery_test.db";
 }
 
-DBIx::SimpleQuery::set_defaults("dsn" => "DBI:SQLite:simplequery_test.db");
+DBIx::SimpleQuery::set_defaults("dsn" => "DBI:SQLite:simplequery_test.db",
+				"user" => "",
+				"password" => "");
 
 # Object Type
 my $sql = new DBIx::SimpleQuery;

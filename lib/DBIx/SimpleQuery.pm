@@ -2,8 +2,8 @@
 ## File: DBIx/SimpleQuery.pm
 ## Author: Steve Simms
 ##
-## Revision: $Revision: 1.4 $
-## Date: $Date: 2004/10/18 21:06:13 $
+## Revision: $Revision: 1.6 $
+## Date: $Date: 2005/02/27 23:09:11 $
 ##
 ## A module designed to take away the pain of querying the database.
 ##
@@ -21,7 +21,7 @@ use vars qw(@ISA @EXPORT);
 @ISA = qw(Exporter);
 @EXPORT = qw(query qs);
 
-our $VERSION = "0.01";
+our $VERSION = "0.02";
 
 my $default_dsn;
 my $default_user;
@@ -103,12 +103,34 @@ sub new {
     return bless $self, $class;
 }
 
+sub setDefaults  { return set_defaults(@_); }
 sub set_defaults {
     my %defaults = @_;
     $default_dsn = $defaults{"dsn"} if exists $defaults{"dsn"};
     $default_user = $defaults{"user"} if exists $defaults{"user"};
     $default_password = $defaults{"password"} if exists $defaults{"password"};
     return;
+}
+
+sub getDsn  { return get_dsn(@_); }
+sub get_dsn {
+    my $self = shift();
+    $self = new DBIx::SimpleQuery unless (ref($self) eq "DBIx::SimpleQuery");
+    return $self->{"dsn"};
+}
+
+sub getUser  { return get_user(@_); }
+sub get_user {
+    my $self = shift();
+    $self = new DBIx::SimpleQuery unless (ref($self) eq "DBIx::SimpleQuery");
+    return $self->{"user"};
+}
+
+sub getPassword  { return get_password(@_); }
+sub get_password {
+    my $self = shift();
+    $self = new DBIx::SimpleQuery unless (ref($self) eq "DBIx::SimpleQuery");
+    return $self->{"password"};
 }
 
 # This can be called either as a class method or a function
@@ -173,8 +195,8 @@ sub query {
 
     # If there's only one row, and one field in that row, return the
     # value instead of a SimpleQuery object.
-    if ($object->{"count"} == 1 and
-	$object->{"field_count"} == 1) {
+    if ($object->{"count"}       and $object->{"count"}       == 1 and
+	$object->{"field_count"} and $object->{"field_count"} == 1) {
 	my ($value) = values %{$object->{"results"}->[0]};
 	return $value;
     }
@@ -277,6 +299,9 @@ query() runs one or more queries against a database, and returns a
 value or a structure that can be evaluated in a number of ways,
 depending on your need.
 
+Multi-word functions may be called either in function_name or
+functionName form, as per your preference.
+
 =head2 Methods
 
 =over 4
@@ -313,6 +338,14 @@ will be used instead of the defaults for this query.
 Sets the default connection parameters for calls to query() and qs().
 %connection_defaults should contain keys "dsn", "user", and
 "password".  See the synopsis for an example.
+
+=item * get_dsn()
+
+=item * get_user()
+
+=item * get_password()
+
+Return the values that SimpleQuery intends to use for each parameter.
 
 =back
 

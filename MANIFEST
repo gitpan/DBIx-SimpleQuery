@@ -7,3 +7,4 @@ lib/DBIx/SimpleQuery.pm
 lib/DBIx/SimpleQuery/Object.pm
 t/01-dbd-sqlite-exists.t
 t/20-general.t
+META.yml                                 Module meta-data (added by MakeMaker)

@@ -1,3 +1,10 @@
+0.02 - 2005-02-27
+- Subs can now be called using thisForm and this_form.
+- Added accessor methods for dsn, user, and password.
+- Eliminated a warning when no rows are returned.
+- Eliminated a number of errors and warnings in the test scripts
+
+
 0.01 - 2004-10-18
 - Initial CPAN release.  Not yet for general consumption, but rather
   so that people can more easily test it and give me pointers on what
