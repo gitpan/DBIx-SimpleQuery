@@ -1,3 +1,7 @@
+0.03 - 2006-06-24
+- Fixed a typo in the synopsis sample code (reported by David Gale)
+- Allow set_defaults to accept either a hash or a hashref of arguments
+
 0.02 - 2005-02-27
 - Subs can now be called using thisForm and this_form.
 - Added accessor methods for dsn, user, and password.

@@ -2,8 +2,8 @@
 ## File: DBIx/SimpleQuery.pm
 ## Author: Steve Simms
 ##
-## Revision: $Revision: 1.6 $
-## Date: $Date: 2005/02/27 23:09:11 $
+## Revision: $Revision: 1.9 $
+## Date: $Date: 2006/06/24 14:23:43 $
 ##
 ## A module designed to take away the pain of querying the database.
 ##
@@ -21,7 +21,7 @@ use vars qw(@ISA @EXPORT);
 @ISA = qw(Exporter);
 @EXPORT = qw(query qs);
 
-our $VERSION = "0.02";
+our $VERSION = "0.03";
 
 my $default_dsn;
 my $default_user;
@@ -105,7 +105,7 @@ sub new {
 
 sub setDefaults  { return set_defaults(@_); }
 sub set_defaults {
-    my %defaults = @_;
+    my %defaults = (ref($_[0]) eq "HASH" ? %{$_[0]} : @_);
     $default_dsn = $defaults{"dsn"} if exists $defaults{"dsn"};
     $default_user = $defaults{"user"} if exists $defaults{"user"};
     $default_password = $defaults{"password"} if exists $defaults{"password"};
@@ -258,11 +258,11 @@ DBIx::SimpleQuery - Query databases using as little code as possible
 
   use DBIx::SimpleQuery;
   
-  DBIx::SimpleQuery::set_defaults({
+  DBIx::SimpleQuery::set_defaults(
       "dsn"      => "DBI:Pg:test_database",
       "user"     => "test_user",
       "password" => "test_password",
-  });
+  );
   
   sub get_name {
       my $user_id = qs(shift());
