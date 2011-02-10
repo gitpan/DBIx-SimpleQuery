@@ -2,8 +2,8 @@
 ## File: DBIx/SimpleQuery.pm
 ## Author: Steve Simms
 ##
-## Revision: $Revision: 1.9 $
-## Date: $Date: 2006/06/24 14:23:43 $
+## Revision: $Revision$
+## Date: $Date$
 ##
 ## A module designed to take away the pain of querying the database.
 ##
@@ -21,7 +21,7 @@ use vars qw(@ISA @EXPORT);
 @ISA = qw(Exporter);
 @EXPORT = qw(query qs);
 
-our $VERSION = "0.03";
+our $VERSION = "0.04";
 
 my $default_dsn;
 my $default_user;
@@ -147,7 +147,15 @@ sub query {
     }
     
     # Establish the connection
-    my $dbh = DBI->connect_cached($self->{"dsn"}, $self->{"user"}, $self->{"password"});
+    my $dbh;
+    if ($self->{"dsn"} =~ /^DBI:Pg/) {
+        $dbh = DBI->connect_cached($self->{"dsn"}, $self->{"user"}, $self->{"password"}, {
+            pg_server_prepare => 0,
+        });
+    }
+    else {
+        $dbh = DBI->connect_cached($self->{"dsn"}, $self->{"user"}, $self->{"password"});
+    }
     croak "Unable to establish a database connection: $DBI::errstr" unless $dbh;
 
     # Debug

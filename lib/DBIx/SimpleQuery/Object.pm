@@ -2,8 +2,8 @@
 ## File: DBIx/SimpleQuery/Object.pm
 ## Author: Steve Simms
 ##
-## Revision: $Revision: 1.2 $
-## Date: $Date: 2004/10/18 20:25:20 $
+## Revision: $Revision$
+## Date: $Date$
 ##
 ## An object created by DBIx::SimpleQuery which holds the results of a
 ## query.
