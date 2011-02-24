@@ -3,11 +3,10 @@ use Test::More tests => 20;
 
 SKIP: {
     eval {
-	require "DBI";
 	require "DBD::SQLite";
     };
 
-    skip "DBI and DBD::SQLite are required for these tests", 20 if $@;
+    skip "DBD::SQLite is required for these tests", 20 if $@;
 
     if (-r "simplequery_test.db") {
 	diag "simplequery_test.db exists.  Removing.";

@@ -21,7 +21,7 @@ use vars qw(@ISA @EXPORT);
 @ISA = qw(Exporter);
 @EXPORT = qw(query qs);
 
-our $VERSION = "0.04";
+our $VERSION = "0.05";
 
 my $default_dsn;
 my $default_user;
